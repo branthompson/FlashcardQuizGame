@@ -1,7 +1,6 @@
 
 import 'package:flashcard_quiz_game/data/questions.dart';
 import 'package:flutter/material.dart';
-
 import '../components/topic_homepage/topic_tile.dart';
 
 
@@ -40,8 +39,6 @@ class _TopicsHomepage extends State<TopicsHomepage> {
       appBar: AppBar(
         toolbarHeight: size.height * 0.1,
         title: Text('Topics Homepage'),
-        centerTitle: true,
-        elevation: 0,
       ),
       body: CustomScrollView(
         slivers: [

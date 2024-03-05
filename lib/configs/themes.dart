@@ -7,6 +7,8 @@ final appTheme = ThemeData(
   primaryColorLight: lblue,
 
   appBarTheme: AppBarTheme(
+    elevation: 0,
+    centerTitle: true,
     titleTextStyle: TextStyle(
       fontSize: 30,
       fontWeight: FontWeight.bold,
