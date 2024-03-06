@@ -83,24 +83,24 @@ class _SlideAnimationState extends State<SlideAnimation> with SingleTickerProvid
 
     Tween<Offset> tween;
 
-    switch(widget.direction){
+    switch(widget.direction) {
       case SlideDirection.leftAway:
-        tween = Tween<Offset>(begin: Offset(0, 0), end: Offset(-1, 0)); // push to the left
+        tween = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-1, 0)); // push to the left
         break;
       case SlideDirection.rightAway:
-        tween = Tween<Offset>(begin: Offset(0, 0), end: Offset(1, 0)); // push to the right
+        tween = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(1, 0)); // push to the right
         break;
       case SlideDirection.leftIn:
-        tween = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0)); // come into the center from the left
+        tween = Tween<Offset>(begin: const Offset(-1, 0), end: const Offset(0, 0)); // come into the center from the left
         break;
       case SlideDirection.rightIn:
-      tween = Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0)); // come into the center from the right
+      tween = Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0)); // come into the center from the right
       break;
       case SlideDirection.upIn:
-        tween = Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0)); // come into the center from the up
+        tween = Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0)); // come into the center from the up
         break;
       case SlideDirection.none:
-        tween = Tween<Offset>(begin: Offset(0, 0), end: Offset(0, 0)); // do nothing
+        tween = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0, 0)); // do nothing
         break;
     }
 
