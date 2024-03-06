@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 loadSession({ required BuildContext context, required String topic}) {
 
   // pushReplacement removes the previous page (no back button) so maybe use push, idk
-  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FlashcardsViewPage()));
+  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FlashcardsViewPage()));
 
   // Access Flashcards notifier which accesses the topic and sets it for that specific session
   Provider.of<FlashcardsNotifier>(context, listen: false).setTopic(topic: topic);

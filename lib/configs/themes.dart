@@ -6,7 +6,7 @@ final appTheme = ThemeData(
   primaryColorDark: dblue,
   primaryColorLight: lblue,
 
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     titleTextStyle: TextStyle(
       fontSize: 30,
       fontWeight: FontWeight.bold,

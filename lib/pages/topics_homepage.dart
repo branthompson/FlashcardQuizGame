@@ -15,7 +15,7 @@ class TopicsHomepage extends StatefulWidget {
 // Flashcard Page UI
 class _TopicsHomepage extends State<TopicsHomepage> {
 
-  List<String> _topics = [];
+  final List<String> _topics = [];
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _TopicsHomepage extends State<TopicsHomepage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: size.height * 0.1,
-        title: Text('Topics Homepage'),
+        title: const Text('Topics Homepage'),
         centerTitle: true,
         elevation: 0,
       ),
@@ -48,7 +48,7 @@ class _TopicsHomepage extends State<TopicsHomepage> {
           SliverAppBar(
             backgroundColor: Theme.of(context).primaryColorLight,
             expandedHeight: size.height * 0.3,
-            flexibleSpace: FlexibleSpaceBar(
+            flexibleSpace: const FlexibleSpaceBar(
               background: Center(
                 child: Text('Topics',
                   style: TextStyle(
@@ -65,7 +65,7 @@ class _TopicsHomepage extends State<TopicsHomepage> {
               childCount: _topics.length,
               (context, index) => TopicTile(topic: _topics[index]),
             ),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, // 2 columns
               crossAxisSpacing: 7, // spacing
               mainAxisSpacing: 7, // spacing

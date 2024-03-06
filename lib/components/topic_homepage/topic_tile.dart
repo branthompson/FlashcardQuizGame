@@ -25,7 +25,7 @@ class TopicTile extends StatelessWidget {
         child: Center(
             child: Text(
                 topic,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white
               ),
