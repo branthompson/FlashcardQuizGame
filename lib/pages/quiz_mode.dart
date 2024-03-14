@@ -32,8 +32,7 @@ class _QuizModePageState extends State<QuizModePage> {
         _currentIndex++;
       });
     } else {
-      // End of quiz
-      _showQuizResults();
+      _showQuizResults(); // End of quiz
     }
   }
 
@@ -46,16 +45,16 @@ class _QuizModePageState extends State<QuizModePage> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.pop(context); // Close the dialog
-              Navigator.pop(context); // Go back to the topics page
+              Navigator.pop(context);
+              Navigator.pop(context); 
             },
             child: const Text('Back to Topics'),
           ),
           TextButton(
             onPressed: () {
-              Navigator.pop(context); // Close the dialog
+              Navigator.pop(context); 
               setState(() {
-                _currentIndex = 0; // Reset the quiz
+                _currentIndex = 0; // Reset
                 _score = 0;
               });
             },
@@ -69,7 +68,6 @@ class _QuizModePageState extends State<QuizModePage> {
   @override
   Widget build(BuildContext context) {
     if (_questions.isEmpty) {
-      // No questions to display
       return Scaffold(
         appBar: AppBar
 (title: const Text('Quiz Mode')),
@@ -86,7 +84,7 @@ return Scaffold(
   ),
   body: Center(
     child: Padding(
-      padding: const EdgeInsets.all(16.0), // Add some padding around the flashcard
+      padding: const EdgeInsets.all(16.0), 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -114,11 +112,11 @@ return Scaffold(
               ),
             ],
           ),
-          const SizedBox(height: 20),
-        ],
+            const SizedBox(height: 20),
+            ],
+          ),
+        ),
       ),
-    ),
-  ),
-);
-}
+    );
+  }
 }
