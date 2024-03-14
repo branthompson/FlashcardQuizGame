@@ -6,7 +6,7 @@ final appTheme = ThemeData(
   primaryColorDark: dblue,
   primaryColorLight: lblue,
 
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     elevation: 0,
     centerTitle: true,
     titleTextStyle: TextStyle(
@@ -16,7 +16,6 @@ final appTheme = ThemeData(
     color: dblue,
   ),
   scaffoldBackgroundColor: lblue,
-
 
 
 );

@@ -2,7 +2,6 @@
 import 'package:flashcard_quiz_game/util/methods.dart';
 import 'package:flutter/material.dart';
 
-
 class TopicTile extends StatelessWidget {
   const TopicTile({
     super.key,
@@ -25,7 +24,7 @@ class TopicTile extends StatelessWidget {
         child: Center(
             child: Text(
                 topic,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white
               ),

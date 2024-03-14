@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => TopicsHomepage()),
                         (route) => false);
               },
-              icon: Icon(Icons.clear, color: Colors.white,))
+              icon: const Icon(Icons.clear, color: Colors.white,))
         ],
         title: Text(notifier.topic),
       ),

@@ -2,6 +2,7 @@
 import 'package:flashcard_quiz_game/animations/half_flip_animation.dart';
 import 'package:flashcard_quiz_game/components/flashcards_view_page/card_back.dart';
 import 'package:flashcard_quiz_game/notifiers/flashcards_notifier.dart';
+import 'package:flashcard_quiz_game/pages/quiz_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/app/custom_appbar.dart';
@@ -18,7 +19,6 @@ class FlashcardsViewPage extends StatefulWidget {
 // Flashcard Page
 class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
 
-
   @override
   void initState() {
     // Using WidgetsBinding so it does not throw exception with provider package
@@ -32,29 +32,28 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
     super.initState();
   }
 
-  //ADD QUESTION////////////////
   // Add a new question to the questions list, with this topic
   void _showAddQuestionDialog(BuildContext context) {
-    TextEditingController _questionController = TextEditingController();
-    TextEditingController _answerController = TextEditingController();
+    TextEditingController questionController = TextEditingController();
+    TextEditingController answerController = TextEditingController();
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Add New Question'),
+          title: const Text('Add New Question'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: _questionController,
-                decoration: InputDecoration(
+                controller: questionController,
+                decoration: const InputDecoration(
                   hintText: 'Enter question',
                 ),
               ),
               TextField(
-                controller: _answerController,
-                decoration: InputDecoration(
+                controller: answerController,
+                decoration: const InputDecoration(
                   hintText: 'Enter answer',
                 ),
               ),
@@ -63,18 +62,18 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
                 // Add the new question to the questions list
                 _addNewQuestion(
-                  _questionController.text,
-                  _answerController.text,
+                  questionController.text,
+                  answerController.text,
                 );
                 Navigator.pop(context);
               },
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
           ],
         );
@@ -92,27 +91,26 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
       flashcardsNotifier.generateAllSelectedQuestions();
     });
   }
-
-  //DELETE//////////////////////
+  
   // Delete Confirmation
   void _showDeleteConfirmationDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Delete Flashcard'),
-          content: Text('Are you sure you want to delete this flashcard?'),
+          title: const Text('Delete Flashcard'),
+          content: const Text('Are you sure you want to delete this flashcard?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('No'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () {
                 _deleteCurrentFlashcard();
                 Navigator.pop(context);
               },
-              child: Text('Yes'),
+              child: const Text('Yes'),
             ),
           ],
         );
@@ -120,8 +118,7 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
     );
   }
 
-
-// Delete the flashcard that the user is currently viewing
+  // Delete the flashcard that the user is currently viewing
   void _deleteCurrentFlashcard() {
     final flashcardsNotifier = Provider.of<FlashcardsNotifier>(context, listen: false);
     final currentQuestion = flashcardsNotifier.question;
@@ -144,55 +141,70 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
     return questionsForTopic.length == 1;
   }
 
-
-  @override
-  Widget build(BuildContext context) {
-
-    // Consumer runs the builder to update the UI, based on value changes in the provider object (FlashcardNotifier)
-    return Consumer<FlashcardsNotifier>(
-      builder: (_, notifier, __) => Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(56),
-            child: CustomAppBar()),
-        body: IgnorePointer(
-          ignoring: notifier.ignoreTouches,
-          child: Stack(
-            children: [
-              CardBack(),
-              CardFront(),
-              Positioned( // DELETE ICON
-                bottom: 50,
-                right: 150,
-                child: _isOnlyOneFlashcardLeft()
-                    ? AbsorbPointer( // If only one left,
-                  child: IconButton(
-                    iconSize: 50,
-                    icon: Icon(Icons.delete),
-                    onPressed: null, // Disable the button
-                  ),
-                )
-                    : IconButton( // otherwise show delete button
-                  iconSize: 50,
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    _showDeleteConfirmationDialog(context);
-                  },
+ @override
+Widget build(BuildContext context) {
+  // Consumer runs the builder to update the UI, based on value changes in the provider object (FlashcardNotifier)
+  return Consumer<FlashcardsNotifier>(
+    builder: (_, notifier, __) => Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(56),
+        child: CustomAppBar(),
+      ),
+      body: IgnorePointer(
+        ignoring: notifier.ignoreTouches,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            const CardBack(answer: ''),
+            const CardFront(question: ''),
+            Positioned(
+              bottom: 50,
+              right: 150,
+              child: _isOnlyOneFlashcardLeft()
+                  ? const AbsorbPointer(
+                      child: IconButton(
+                        iconSize: 50,
+                        icon: Icon(Icons.delete),
+                        onPressed: null, // Disable the button
+                      ),
+                    )
+                  : IconButton(
+                      iconSize: 50,
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        _showDeleteConfirmationDialog(context);
+                      },
+                    ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.07, // Adjust the position as needed
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.red, // text color
                 ),
+                onPressed: () {
+                  // Navigate to the quiz screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const QuizModePage(),
+                    ),
+                  );
+                },
+                child: const Text('Quiz Yourself', style: TextStyle(fontSize: 20)),
               ),
-            ],
-          ),
-        ), // Front of Flashcard
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _showAddQuestionDialog(context); // add question, dialog pop up.
-          },
-          child: Icon(Icons.add),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'addQuestion',
+        onPressed: () {
+          _showAddQuestionDialog(context); // add question, dialog pop up.
+        },
+        child: const Icon(Icons.add),
         ),
       ),
     );
   }
 }
-
-
-
-

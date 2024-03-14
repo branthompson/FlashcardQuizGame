@@ -8,7 +8,7 @@ import '../../notifiers/flashcards_notifier.dart';
 
 class CardFront extends StatelessWidget {
   const CardFront({
-    super.key,
+    super.key, required String question,
   });
 
   @override

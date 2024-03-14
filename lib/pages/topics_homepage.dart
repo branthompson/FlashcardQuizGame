@@ -4,18 +4,16 @@ import 'package:flutter/material.dart';
 import '../components/topic_homepage/topic_tile.dart';
 import '../models/question.dart';
 
-
 class TopicsHomepage extends StatefulWidget {
   const TopicsHomepage({Key? key}) : super(key: key);
 
   @override
   State<TopicsHomepage> createState() => _TopicsHomepage();
 }
-
 // Topics Page UI
 class _TopicsHomepage extends State<TopicsHomepage> {
 
-  List<String> _topics = [];
+  final List<String> _topics = [];
 
   @override
   void initState() {
@@ -30,38 +28,35 @@ class _TopicsHomepage extends State<TopicsHomepage> {
     }
     super.initState();
   }
-
-
   // CREATE A NEW TOPIC//////////////////////////
-
   void _showCreateTopicDialog(BuildContext context) {
-    TextEditingController _topicController = TextEditingController();
-    TextEditingController _questionController = TextEditingController();
-    TextEditingController _answerController = TextEditingController();
+    TextEditingController topicController = TextEditingController();
+    TextEditingController questionController = TextEditingController();
+    TextEditingController answerController = TextEditingController();
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Create New Topic'),
+          title: const Text('Create New Topic'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: _topicController,
-                decoration: InputDecoration(
+                controller: topicController,
+                decoration: const InputDecoration(
                   hintText: 'Enter topic name',
                 ),
               ),
               TextField(
-                controller: _questionController,
-                decoration: InputDecoration(
+                controller: questionController,
+                decoration: const InputDecoration(
                   hintText: 'Enter question',
                 ),
               ),
               TextField(
-                controller: _answerController,
-                decoration: InputDecoration(
+                controller: answerController,
+                decoration: const InputDecoration(
                   hintText: 'Enter answer',
                 ),
               ),
@@ -70,35 +65,31 @@ class _TopicsHomepage extends State<TopicsHomepage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
                 // Add the new question to the questions list
                 _addNewQuestion(
-                  _topicController.text,
-                  _questionController.text,
-                  _answerController.text,
+                  topicController.text,
+                  questionController.text,
+                  answerController.text,
                 );
                 Navigator.pop(context);
               },
-              child: Text('Create'),
+              child: const Text('Create'),
             ),
           ],
         );
       },
     );
   }
-
-
   // Add a new Question to the questions List
   void _addNewQuestion(String topic, String question, String answer) {
     setState(() {
       questions.add(Question(topic: topic, question: question, answer: answer));
     });
   }
-
-
   //UI///////////////
   @override
   Widget build(BuildContext context) {
@@ -108,21 +99,21 @@ class _TopicsHomepage extends State<TopicsHomepage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: size.height * 0.1,
-        title: Text('Topics Homepage'),
+        title: const Text('Topics Homepage'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Show a dialog or navigate to a new page to create a new topic
           _showCreateTopicDialog(context);
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             backgroundColor: Theme.of(context).primaryColorLight,
             expandedHeight: size.height * 0.3,
-            flexibleSpace: FlexibleSpaceBar(
+            flexibleSpace: const FlexibleSpaceBar(
               background: Center(
                 child: Text('Topics',
                   style: TextStyle(
@@ -139,7 +130,7 @@ class _TopicsHomepage extends State<TopicsHomepage> {
               childCount: _topics.length,
               (context, index) => TopicTile(topic: _topics[index]),
             ),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, // 2 columns
               crossAxisSpacing: 7, // spacing
               mainAxisSpacing: 7, // spacing
@@ -148,9 +139,5 @@ class _TopicsHomepage extends State<TopicsHomepage> {
         ],
       ),
     );
-
-
   }
 }
-
-

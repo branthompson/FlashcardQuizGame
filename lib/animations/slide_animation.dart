@@ -40,10 +40,6 @@ class _SlideAnimationState extends State<SlideAnimation> with SingleTickerProvid
             widget.animationCompleted?.call();
           }
     });
-
-    // if(widget.animate){
-    //   _animationController.forward();
-    // }
     super.initState();
   }
 
@@ -79,34 +75,34 @@ class _SlideAnimationState extends State<SlideAnimation> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
 
-    late final Animation<Offset> _animation;
+    late final Animation<Offset> animation;
 
     Tween<Offset> tween;
 
     switch(widget.direction){
       case SlideDirection.leftAway:
-        tween = Tween<Offset>(begin: Offset(0, 0), end: Offset(-1, 0)); // push to the left
+        tween = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-1, 0)); // push to the left
         break;
       case SlideDirection.rightAway:
-        tween = Tween<Offset>(begin: Offset(0, 0), end: Offset(1, 0)); // push to the right
+        tween = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(1, 0)); // push to the right
         break;
       case SlideDirection.leftIn:
-        tween = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0)); // come into the center from the left
+        tween = Tween<Offset>(begin: const Offset(-1, 0), end: const Offset(0, 0)); // come into the center from the left
         break;
       case SlideDirection.rightIn:
-      tween = Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0)); // come into the center from the right
+      tween = Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0)); // come into the center from the right
       break;
       case SlideDirection.upIn:
-        tween = Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0)); // come into the center from the up
+        tween = Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0)); // come into the center from the up
         break;
       case SlideDirection.none:
-        tween = Tween<Offset>(begin: Offset(0, 0), end: Offset(0, 0)); // do nothing
+        tween = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0, 0)); // do nothing
         break;
     }
 
-    _animation = tween.animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+    animation = tween.animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
 
-    return SlideTransition(position: _animation,
+    return SlideTransition(position: animation,
       child: widget.child,
     );
   }

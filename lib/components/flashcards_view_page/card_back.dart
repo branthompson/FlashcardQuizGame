@@ -9,7 +9,7 @@ import '../../notifiers/flashcards_notifier.dart';
 
 class CardBack extends StatelessWidget {
   const CardBack({
-    super.key,
+    super.key, required String answer,
   });
 
   @override
