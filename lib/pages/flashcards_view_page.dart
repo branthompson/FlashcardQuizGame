@@ -1,6 +1,5 @@
-
-import 'package:flashcard_quiz_game/animations/half_flip_animation.dart';
 import 'package:flashcard_quiz_game/components/flashcards_view_page/card_back.dart';
+import 'package:flashcard_quiz_game/models/db_helper.dart';
 import 'package:flashcard_quiz_game/notifiers/flashcards_notifier.dart';
 import 'package:flashcard_quiz_game/pages/quiz_mode.dart';
 import 'package:flutter/material.dart';
@@ -82,16 +81,35 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
   }
 
   // Add new question to the current topic of flashcards
-  void _addNewQuestion(String question, String answer) {
-    final flashcardsNotifier = Provider.of<FlashcardsNotifier>(context, listen: false);
-    final currentTopic = flashcardsNotifier.topic;
+  void _addNewQuestion(String questionText, String answerText) async {
+  final flashcardsNotifier = Provider.of<FlashcardsNotifier>(context, listen: false);
+  final currentTopic = flashcardsNotifier.topic;
 
-    setState(() {
-      questions.add(Question(topic: currentTopic, question: question, answer: answer));
-      flashcardsNotifier.generateAllSelectedQuestions();
-    });
+  // Create a new Question object
+  Question newQuestion = Question(topic: currentTopic, question: questionText, answer: answerText);
+
+  try {
+    // Insert the new Question into the database
+    int newQuestionId = await DBHelper.instance.insertFlashcard(newQuestion.toMap() as Question);
+
+    // If the insert operation was successful, add the question to the in-memory list
+    if(newQuestionId != 0) {
+      // Set the id of the new question to the id returned by the database
+      newQuestion.id = newQuestionId;
+
+      // Update the in-memory list and UI
+      setState(() {
+        questions.add(newQuestion);
+        flashcardsNotifier.generateAllSelectedQuestions();
+      });
+    }
+  } catch (e) {
+    // If there's an error, print it or log it
+    print('Error adding new question: $e');
   }
-  
+}
+
+
   // Delete Confirmation
   void _showDeleteConfirmationDialog(BuildContext context) {
     showDialog(

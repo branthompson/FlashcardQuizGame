@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../notifiers/flashcards_notifier.dart';
@@ -18,7 +17,7 @@ class CustomAppBar extends StatelessWidget {
               onPressed: (){
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => TopicsHomepage()),
+                    MaterialPageRoute(builder: (context) => const TopicsHomepage()),
                         (route) => false);
               },
               icon: const Icon(Icons.clear, color: Colors.white,))

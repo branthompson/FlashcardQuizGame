@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flashcard_quiz_game/configs/constants.dart';
 import 'package:flashcard_quiz_game/data/questions.dart';
+import 'package:flashcard_quiz_game/models/db_helper.dart';
 import 'package:flashcard_quiz_game/enums/slide_direction.dart';
 import 'package:flashcard_quiz_game/models/question.dart';
 import 'package:flutter/material.dart';
@@ -105,5 +106,7 @@ class FlashcardsNotifier extends ChangeNotifier {
     swipeCard2 = false;
     flipCard2 = false;
   }
+
+  void updateAllFlashcards(List<Flashcard> allFlashcards) {}
 
 }
