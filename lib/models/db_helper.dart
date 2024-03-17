@@ -27,7 +27,7 @@ class DBHelper {
   }
 
   Future _onCreate(Database db, int version) async {
-    var db = await openDatabase(path, version: 2, onCreate: _onCreate, onUpgrade: _onUpgrade);
+    // var db = await openDatabase(path, version: 2, onCreate: _onCreate, onUpgrade: _onUpgrade);
     await db.execute('''
       CREATE TABLE flashcards (
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -46,16 +46,12 @@ class DBHelper {
   }
 
   Future<List<Flashcard>> getFlashcards() async {
-    var dbClient = await database;
-    List<Map> maps = await dbClient.query('flashcards', columns: ['id', 'question', 'answer']);
-    List<Flashcard> flashcards = [];
-    if (maps.isNotEmpty) {
-      for (Map map in maps) {
-        flashcards.add(Flashcard.fromMap(maps as Map<String, dynamic>));
-      }
-    }
-    return flashcards;
-  }
+  final dbClient = await database;
+  final List<Map<String, dynamic>> maps = await dbClient.query('flashcards', columns: ['id', 'topic', 'question', 'answer']);
+  final List<Flashcard> flashcards = maps.map((map) => Flashcard.fromMap(map)).toList();
+  return flashcards;
+}
+
   
   Future<void> deleteFlashcard(int id) async {
     final dbClient = await database;
@@ -76,32 +72,30 @@ class DBHelper {
 
 }
 
-
-
 class Flashcard {
   int? id;
   String question;
   String answer;
+  String topic;
 
-  Flashcard({this.id, required this.question, required this.answer});
+ Flashcard({this.id, required this.topic, required this.question, required this.answer});
 
+  // Add 'topic' to toMap and fromMap as well
   Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{
+    return {
+      'id': id, // include id in toMap as well, some ORMs require this to be present
+      'topic': topic,
       'question': question,
       'answer': answer,
     };
-    if (id != null) {
-      map['id'] = id;
-    }
-    return map;
   }
 
   static Flashcard fromMap(Map<String, dynamic> map) {
     return Flashcard(
       id: map['id'],
+      topic: map['topic'], // Make sure 'topic' is extracted from the map
       question: map['question'],
       answer: map['answer'],
     );
   }
 }
-

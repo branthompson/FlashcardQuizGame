@@ -90,7 +90,7 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
 
   try {
     // Insert the new Question into the database
-    int newQuestionId = await DBHelper.instance.insertFlashcard(newQuestion.toMap() as Question);
+    int newQuestionId = await DBHelper.instance.insertFlashcard(newQuestion.toMap());
 
     // If the insert operation was successful, add the question to the in-memory list
     if(newQuestionId != 0) {
@@ -108,7 +108,6 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
     print('Error adding new question: $e');
   }
 }
-
 
   // Delete Confirmation
   void _showDeleteConfirmationDialog(BuildContext context) {
@@ -205,7 +204,7 @@ Widget build(BuildContext context) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const QuizModePage(),
+                      builder: (context) => const QuizModePage(topicName: 'Your Topic Name',),
                     ),
                   );
                 },

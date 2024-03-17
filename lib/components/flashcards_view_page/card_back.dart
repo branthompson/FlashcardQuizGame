@@ -64,7 +64,7 @@ class CardBack extends StatelessWidget {
                     color: Colors.black,
                     width: 3,
                   ),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black,
                       blurRadius: 2.0,
@@ -80,7 +80,7 @@ class CardBack extends StatelessWidget {
                     child: Center(
                       child: Text(
                         notifier.answer.answer,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                           color: Colors.white,
                         ),

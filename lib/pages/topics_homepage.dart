@@ -4,7 +4,7 @@ import '../components/topic_homepage/topic_tile.dart';
 import '../models/question.dart';
 
 class TopicsHomepage extends StatefulWidget {
-  const TopicsHomepage({Key? key}) : super(key: key);
+  const TopicsHomepage({super.key});
 
   @override
   State<TopicsHomepage> createState() => _TopicsHomepage();

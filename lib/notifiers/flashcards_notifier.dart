@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flashcard_quiz_game/configs/constants.dart';
 import 'package:flashcard_quiz_game/data/questions.dart';
 import 'package:flashcard_quiz_game/models/db_helper.dart';
@@ -14,8 +13,6 @@ class FlashcardsNotifier extends ChangeNotifier {
   Question question = Question(topic: "", question: "", answer: "");
   Question answer = Question(topic: "", question: "", answer: ""); // represents what on card back
   List<Question> selectedQuestions = [];
-
-
 
   // Wanna communicate what topic was selected when navigating to the new page
   setTopic({required String topic}) {
@@ -40,14 +37,11 @@ class FlashcardsNotifier extends ChangeNotifier {
     }
 
     // So Question does not change when the card is flipped. Delaying issue
-    Future.delayed(Duration(milliseconds: kSlideAwayDuration), () {
+    Future.delayed(const Duration(milliseconds: kSlideAwayDuration), () {
       answer = question;
     });
 
   }
-
-
-
 
   ///////////////ANIMATION STUFF//////////////////////////////////////
 
@@ -108,5 +102,6 @@ class FlashcardsNotifier extends ChangeNotifier {
   }
 
   void updateAllFlashcards(List<Flashcard> allFlashcards) {}
+  void flipCard() {}
 
 }

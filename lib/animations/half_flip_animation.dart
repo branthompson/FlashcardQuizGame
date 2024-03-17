@@ -28,7 +28,7 @@ class _HalfFlipAnimationState extends State<HalfFlipAnimation> with SingleTicker
   void initState() {
 
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
         vsync: this)..addListener(() {
           if(_animationController.isCompleted) {
             widget.animationCompleted.call();
