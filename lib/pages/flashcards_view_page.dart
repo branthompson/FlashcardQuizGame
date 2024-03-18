@@ -35,7 +35,7 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
   void _showAddQuestionDialog(BuildContext context) {
     TextEditingController questionController = TextEditingController();
     TextEditingController answerController = TextEditingController();
-
+        
     showDialog(
       context: context,
       builder: (context) {
@@ -89,22 +89,16 @@ class _FlashcardsViewPageState extends State<FlashcardsViewPage> {
   Question newQuestion = Question(topic: currentTopic, question: questionText, answer: answerText);
 
   try {
-    // Insert the new Question into the database
     int newQuestionId = await DBHelper.instance.insertFlashcard(newQuestion.toMap());
-
-    // If the insert operation was successful, add the question to the in-memory list
     if(newQuestionId != 0) {
-      // Set the id of the new question to the id returned by the database
-      newQuestion.id = newQuestionId;
 
-      // Update the in-memory list and UI
+      newQuestion.id = newQuestionId;
       setState(() {
         questions.add(newQuestion);
         flashcardsNotifier.generateAllSelectedQuestions();
       });
     }
   } catch (e) {
-    // If there's an error, print it or log it
     print('Error adding new question: $e');
   }
 }
@@ -204,7 +198,7 @@ Widget build(BuildContext context) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const QuizModePage(topicName: 'Your Topic Name',),
+                      builder: (context) => const QuizModePage(topicName: '',),
                     ),
                   );
                 },

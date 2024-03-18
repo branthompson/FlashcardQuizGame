@@ -41,6 +41,4 @@ final List<Question> questions = [
   Question(topic: 'Body Parts', question: 'What part of the body helps us taste?', answer: 'Tongue'),
   Question(topic: 'Body Parts', question: 'What part of the body helps us walk?', answer: 'Legs'),
 
-
-
 ];

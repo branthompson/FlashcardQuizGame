@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flashcard_quiz_game/components/flashcards_view_page/Flashcard.dart';
 import 'package:flashcard_quiz_game/configs/constants.dart';
 import 'package:flashcard_quiz_game/data/questions.dart';
 import 'package:flashcard_quiz_game/models/db_helper.dart';
@@ -13,6 +14,8 @@ class FlashcardsNotifier extends ChangeNotifier {
   Question question = Question(topic: "", question: "", answer: "");
   Question answer = Question(topic: "", question: "", answer: ""); // represents what on card back
   List<Question> selectedQuestions = [];
+
+  get currentTopic => null;
 
   // Wanna communicate what topic was selected when navigating to the new page
   setTopic({required String topic}) {
@@ -100,8 +103,5 @@ class FlashcardsNotifier extends ChangeNotifier {
     swipeCard2 = false;
     flipCard2 = false;
   }
-
-  void updateAllFlashcards(List<Flashcard> allFlashcards) {}
-  void flipCard() {}
 
 }

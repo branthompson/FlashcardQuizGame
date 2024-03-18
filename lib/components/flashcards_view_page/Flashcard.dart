@@ -1,19 +1,17 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
-
-// Define a callback type for resetting the flashcard
 typedef ResetCardCallback = void Function();
 
 class Flashcard extends StatefulWidget {
   final String question;
   final String answer;
-  final ResetCardCallback onReset; // Add a callback for resetting the card
+  final ResetCardCallback onReset; 
 
   const Flashcard({
     super.key, 
     required this.question, 
     required this.answer, 
-    required this.onReset, // Require the callback in the constructor
+    required this.onReset, 
   });
 
   @override
@@ -91,7 +89,7 @@ class CardBack extends StatelessWidget {
     return Card(
       color: Colors.green,
       child: Padding(
-        padding: const EdgeInsets.all(100.0), // Increase padding
+        padding: const EdgeInsets.all(135.0), // Increase padding
         child: Center(
           child: Text(
             answer,

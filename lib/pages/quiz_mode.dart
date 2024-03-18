@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../notifiers/flashcards_notifier.dart';
 import '../models/question.dart';
+import 'topics_homepage.dart'; 
 
 class QuizModePage extends StatefulWidget {
-  const QuizModePage({super.key, required this.topicName});
   final String topicName;
+
+  const QuizModePage({super.key, required this.topicName});
 
   @override
   QuizModePageState createState() => QuizModePageState();
@@ -29,13 +31,11 @@ class QuizModePageState extends State<QuizModePage> {
     if (correct) {
       _score++;
     }
-    // If not the last question, just move to the next one
     if (_currentIndex < _questions.length - 1) {
       setState(() {
         _currentIndex++;
       });
     } else {
-      // If the last question, mark it as answered
       setState(() {
         _lastQuestionAnswered = true;
       });
@@ -46,7 +46,7 @@ class QuizModePageState extends State<QuizModePage> {
   Widget build(BuildContext context) {
     if (_questions.isEmpty) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Quiz Mode: $topicName')),
+        appBar: AppBar(title: Text('Quiz Mode ${widget.topicName}')),
         body: const Center(child: Text('No questions available')),
       );
     }
@@ -54,7 +54,7 @@ class QuizModePageState extends State<QuizModePage> {
     Question currentQuestion = _questions[_currentIndex];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Quiz Mode')),
+      appBar: AppBar(title: Text('Quiz Mode ${widget.topicName}')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -63,10 +63,10 @@ class QuizModePageState extends State<QuizModePage> {
             children: <Widget>[
               Flashcard(
                 question: currentQuestion.question,
-                answer: currentQuestion.answer, onReset: () {  },
+                answer: currentQuestion.answer,
+                onReset: () { /* Callback here if needed */ },
               ),
               const SizedBox(height: 20),
-              // Show check and cross buttons unless it's the last question and it has been answered
               if (_currentIndex < _questions.length - 1 || !_lastQuestionAnswered)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -85,7 +85,6 @@ class QuizModePageState extends State<QuizModePage> {
                     ),
                   ],
                 ),
-              // If it's the last question and it has been answered, show the "Show Results" button
               if (_currentIndex == _questions.length - 1 && _lastQuestionAnswered)
                 ElevatedButton(
                   onPressed: _showQuizResults,
@@ -108,7 +107,12 @@ class QuizModePageState extends State<QuizModePage> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              // Navigate back to the TopicsHomepage and remove all routes below it
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const TopicsHomepage()),
+                (Route<dynamic> route) => false,
+              );
             },
             child: const Text('Back to Topics'),
           ),
@@ -117,9 +121,9 @@ class QuizModePageState extends State<QuizModePage> {
               setState(() {
                 _currentIndex = 0;
                 _score = 0;
-                _lastQuestionAnswered = false; // Reset this for the next quiz
+                _lastQuestionAnswered = false;
               });
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(); // Close the dialog
             },
             child: const Text('Restart Quiz'),
           ),

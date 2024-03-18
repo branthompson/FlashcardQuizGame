@@ -63,12 +63,6 @@ class DBHelper {
   }
   // Add methods for deleting and updating flashcards here.
   // ...
- Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-  if (oldVersion < newVersion) {
-    // Add the missing 'topic' column
-    await db.execute("ALTER TABLE flashcards ADD COLUMN topic TEXT");
-  }
-}
 
 }
 
